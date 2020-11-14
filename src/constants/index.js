@@ -1,5 +1,7 @@
 export const _navigation = {
-    Home: 'Home',
-}
+  Home: 'Home',
+  SignIn: 'SignIn',
+  SignUp: 'SignUp',
+};
 
-export * from './theme'
+export * from './theme';
