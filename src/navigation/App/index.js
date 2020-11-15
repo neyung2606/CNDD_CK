@@ -4,6 +4,9 @@ import Loading from '../../screens/loading';
 import Home from '../../screens/home';
 import SignIn from '../../screens/SignIn';
 import SignUp from '../../screens/SignUp';
+import Profile from '../../screens/Profile';
+import UpdateProfile from '../../screens/UpdateProfile';
+import ChangePassword from '../../screens/ChangePassword';
 import {
   CardStyleInterpolators,
   createStackNavigator,
@@ -40,6 +43,12 @@ const splashScreen = {
 };
 
 const appScreen = {
+  UpdateProfile: {
+    screen: UpdateProfile,
+    options: {
+      title: 'UpdateProfile',
+    },
+  },
   Home: {
     screen: Home,
     options: {
@@ -56,6 +65,18 @@ const appScreen = {
     screen: SignUp,
     options: {
       title: 'SignUp',
+    },
+  },
+  Profile: {
+    screen: Profile,
+    options: {
+      title: 'Profile',
+    },
+  },
+  ChangePassword: {
+    screen: ChangePassword,
+    options: {
+      title: 'ChangePassword',
     },
   },
 };
@@ -89,7 +110,7 @@ export const AppStack = () => {
         header: headerComponent,
       }}
       headerMode={'screen'}
-      initialRouteName="SignUp">
+      initialRouteName="Profile">
       {Object.entries({...(isLoadApp ? splashScreen : appScreen)}).map(
         ([name, component]) => (
           <Stack.Screen
