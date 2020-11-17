@@ -5,6 +5,7 @@ export const _navigation = {
   Profile: 'Profile',
   UpdateProfile: 'UpdateProfile',
   ChangePassword: 'ChangePassword',
+  Search: 'Search',
 };
 
 export * from './theme';
