@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {Header, BackButton, MenuButtonLeft} from '../../components';
 import Loading from '../../screens/loading';
 import Home from '../../screens/home';
-import TestScreen from '../../screens/testscreen'
+import SignIn from '../../screens/SignIn';
+import SignUp from '../../screens/SignUp';
 import {
   CardStyleInterpolators,
   createStackNavigator,
@@ -45,10 +46,16 @@ const appScreen = {
       title: 'Home',
     },
   },
-  TestScreen: {
-    screen: TestScreen,
+  SignIn: {
+    screen: SignIn,
     options: {
-      title: 'TestScreen',
+      title: 'SignIn',
+    },
+  },
+  SignUp: {
+    screen: SignUp,
+    options: {
+      title: 'SignUp',
     },
   },
 };
@@ -82,7 +89,7 @@ export const AppStack = () => {
         header: headerComponent,
       }}
       headerMode={'screen'}
-      initialRouteName="Home">
+      initialRouteName="SignUp">
       {Object.entries({...(isLoadApp ? splashScreen : appScreen)}).map(
         ([name, component]) => (
           <Stack.Screen
