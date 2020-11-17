@@ -1,4 +1,11 @@
 module.exports = {
-  root: true,
-  extends: '@react-native-community',
+	root: true,
+	extends: '@react-native-community',
+	'prettier/prettier': [
+		'error',
+		{
+			endOfLine: 'crlf',
+		},
+		{ usePrettierrc: true },
+	],
 };

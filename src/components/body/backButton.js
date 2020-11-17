@@ -1,5 +1,6 @@
 import React from 'react';
 import {SPButton} from './button';
+import { Image } from 'react-native'
 
 import BackIcon from '../../assets/icons/header/back.svg';
 

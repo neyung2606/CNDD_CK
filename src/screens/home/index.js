@@ -1,10 +1,12 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Button} from 'react-native';
+import { _navigation } from '../../constants';
 
-const Home = () => {
+const Home = (props) => {
   return (
     <View>
       <Text>Home Page</Text>
+      <Button title="Navigation" onPress={() => props.navigation.navigate(_navigation.TestScreen)} />
     </View>
   );
 };
