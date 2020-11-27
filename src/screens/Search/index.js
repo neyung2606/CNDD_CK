@@ -44,6 +44,7 @@ const Search = ({navigation}) => {
     });
   };
   const _renderItem = ({item, navigation}) => {
+    console.log(item.image);
     return (
       <Swiper
         style={styles.container}
@@ -56,7 +57,7 @@ const Search = ({navigation}) => {
           >
             <Image
               style={styles.image}
-              source={{uri: item.image}}
+              source={{uri: item.image[0]}}
               PlaceholderContent={
                 <View
                   style={{
