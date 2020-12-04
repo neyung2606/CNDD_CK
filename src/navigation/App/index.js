@@ -7,6 +7,7 @@ import SignUp from '../../screens/SignUp';
 import Profile from '../../screens/Profile';
 import UpdateProfile from '../../screens/UpdateProfile';
 import ChangePassword from '../../screens/ChangePassword';
+import Search from '../../screens/Search';
 import {
   CardStyleInterpolators,
   createStackNavigator,
@@ -79,6 +80,12 @@ const appScreen = {
       title: 'ChangePassword',
     },
   },
+  Search: {
+    screen: Search,
+    options: {
+      title: 'Search',
+    },
+  },
 };
 
 const configSwitchScreen = {
@@ -110,7 +117,7 @@ export const AppStack = () => {
         header: headerComponent,
       }}
       headerMode={'screen'}
-      initialRouteName="Profile">
+      initialRouteName="Search">
       {Object.entries({...(isLoadApp ? splashScreen : appScreen)}).map(
         ([name, component]) => (
           <Stack.Screen
