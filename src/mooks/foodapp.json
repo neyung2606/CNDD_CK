@@ -1,0 +1,34 @@
+[
+  {
+    "id": "1",
+    "name": "Pork",
+    "price": "1$",
+    "location": "Viet Nam",
+    "category": "1",
+    "image": "https://vinmec-prod.s3.amazonaws.com/images/20190509_044102_045748_thit-lon.max-800x800.jpg"
+  },
+  {
+    "id": "2",
+    "name": "Beef",
+    "price": "3$",
+    "location": "US",
+    "category": "2",
+    "image": "https://st.suckhoegiadinh.com.vn/staticFile/Subject/2019/08/14/huong-dan-cach-uop-thit-bo-my-nuong-ngon-ngay-tai-nha-2_142232183.jpg"
+  },
+  {
+    "id": "3",
+    "name": "Tomato",
+    "price": "2$",
+    "location": "Indo",
+    "category": "1",
+    "image": "https://icdn.dantri.com.vn/thumb_w/640/2019/05/18/ca-chua-1558139604071.jpg"
+  },
+  {
+    "id": "4",
+    "name": "broccoli",
+    "price": "12$",
+    "location": "Viet Nam",
+    "category": "4",
+    "image": "https://www.healthifyme.com/blog/wp-content/uploads/2020/01/Broccoli-1.jpg"
+  }
+]
