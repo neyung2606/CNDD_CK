@@ -24,7 +24,7 @@ const Home = ({ navigation }) => {
 	const { signOut } = useContext(AuthContext);
 
 	return (
-		<ScrollView>
+		<ScrollView style={{height: Dimensions.get('screen').height}}>
 			<TopCategory></TopCategory>
 			<Block height={1} color="#EFEEEE" />
 			<PopularItems></PopularItems>
