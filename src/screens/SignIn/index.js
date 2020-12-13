@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
   View,
   Text,
@@ -16,6 +16,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-community/async-storage';
 import {_navigation} from '../../constants';
 import styles from './styles';
+import { AuthContext } from '../../stores';
+
 
 const SignIn = ({navigation}) => {
   const [data, setData] = React.useState({
@@ -29,6 +31,9 @@ const SignIn = ({navigation}) => {
     isToken: false,
     tokenLogInFromAPI: '',
   });
+
+  const { signIn } = useContext(AuthContext);
+
 
   const sendCred = async () => {
     fetch('http://evening-wildwood-46158.herokuapp.com/auth/login', {
@@ -53,7 +58,9 @@ const SignIn = ({navigation}) => {
           await AsyncStorage.setItem('token', responseJson.token);
           await AsyncStorage.setItem('username', data.username);
           const tk = await AsyncStorage.getItem('token');
-          navigation.navigate(_navigation.Home);
+          // navigation.navigate(_navigation.Home);
+          console.log(SignIn)
+          signIn(tk);
         } else if (responseJson.statusCode === 409) {
           alert('Vui long kiem tra lai user name pass');
         }
@@ -70,7 +77,7 @@ const SignIn = ({navigation}) => {
         ...data,
         isToken: true,
       });
-      navigation.navigate(_navigation.Home);
+      SignIn;
     } else {
       setData({
         ...data,
@@ -135,17 +142,17 @@ const SignIn = ({navigation}) => {
       });
     }
   };
-  const login = () => {
-    if (
-      userInfo.username === data.username &&
-      userInfo.password === data.password
-    ) {
-      alert('Correct thing');
-      navigation.navigate(_navigation.Home);
-    } else {
-      alert('Incorrect thing');
-    }
-  };
+  // const login = () => {
+  //   if (
+  //     userInfo.username === data.username &&
+  //     userInfo.password === data.password
+  //   ) {
+  //     alert('Correct thing');
+  //     // navigation.navigate(_navigation.Home);
+  //   } else {
+  //     alert('Incorrect thing');
+  //   }
+  // };
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#FF6347" barStyle="light-content" />
@@ -217,9 +224,7 @@ const SignIn = ({navigation}) => {
         <View style={styles.button}>
           <TouchableOpacity
             style={styles.signIn}
-            onPress={() => {
-              sendCred();
-            }}>
+            onPress={() => sendCred()}>
             <LinearGradient
               colors={['#FFA07A', '#FF6347']}
               style={styles.signIn}>
