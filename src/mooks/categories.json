@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "name": "Meat",
+    "image": "https://cdn.tgdd.vn/2020/07/CookProduct/pork-industry-trends-variety-1200x676.jpg"
+  },
+  {
+    "id": "2",
+    "name": "Soup",
+    "image": "https://haisantrungnam.vn/wp-content/uploads/2020/03/ca-ngu-soc-dua-1-600x450.jpg"
+  },
+  {
+    "id": "3",
+    "name": "Vegetable",
+    "image": "https://www.hoidaubepaau.com/wp-content/uploads/2018/09/su-dung-gia-vi-lam-tang-huong-vi.jpg"
+  },
+  {
+    "id": "4",
+    "name": "Fried Food",
+    "image": "https://static1.squarespace.com/static/56c7a435f850827f409acdf7/t/58532654893fc052746f1e33/1481844315779/?format=1500w"
+  }
+]

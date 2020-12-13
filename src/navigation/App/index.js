@@ -144,7 +144,7 @@ export const rootStack = () => {
 	return (
 		<Stack.Navigator headerMode={'screen'}>
 			{Object.entries({
-				...(appScreen),
+				...appScreen,
 			}).map(([name, component]) => (
 				<Stack.Screen
 					key={name}
