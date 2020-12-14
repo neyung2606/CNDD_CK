@@ -19,7 +19,6 @@ const W = Dimensions.get('window').width / 4;
 
 const TopCategory = () => {
 	const renderItem = ({ item }) => {
-		console.log(item);
 		return (
 			<ButtonMain padding={5}>
 				<Image style={style.img} source={{ uri: item.image }} />

@@ -11,9 +11,10 @@ import Search from '../../screens/Search';
 import {
 	CardStyleInterpolators,
 	createStackNavigator,
-	StackNavigationOptions,
 } from '@react-navigation/stack';
 import { header } from './styles';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const headerComponent = ({ scene, previous, navigation }) => {
 	const { options } = scene.descriptor;
@@ -43,12 +44,56 @@ const splashScreen = {
 	},
 };
 
-export const appScreen = {
+const bottomStack = {
 	Home: {
 		screen: Home,
 		options: {
 			title: 'Home',
-			header: headerComponent,
+			tabBarIcon: () => <Icon name="home" size={30} />,
+		},
+	},
+	Profile: {
+		screen: Profile,
+		options: {
+			title: 'Profile',
+			tabBarIcon: () => <Icon name="user" size={30} />,
+		},
+	},
+	Search: {
+		screen: Search,
+		options: {
+			title: 'Search',
+			tabBarIcon: () => <Icon name="search" size={30} />,
+		},
+	},
+};
+
+const Tab = createBottomTabNavigator();
+
+export const TabNavigation = () => (
+	<Tab.Navigator>
+		{Object.entries({
+			...bottomStack,
+		}).map(([name, component]) => (
+			<Tab.Screen
+				key={name}
+				name={name}
+				component={component.screen}
+				options={{
+					cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+					...component.options,
+				}}
+			></Tab.Screen>
+		))}
+	</Tab.Navigator>
+);
+
+const appScreen = {
+	Home: {
+		screen: TabNavigation,
+		options: {
+			title: 'Home',
+			header: () => {},
 		},
 	},
 	UpdateProfile: {
@@ -112,7 +157,7 @@ const authScreen = {
 
 const Stack = createStackNavigator();
 
-export const authStack = () => {
+export const AuthStack = () => {
 	const [isLoadApp, setIsLoadApp] = useState(true);
 
 	useEffect(() => {
@@ -140,22 +185,24 @@ export const authStack = () => {
 	);
 };
 
-export const rootStack = () => {
+export const RootStack = () => {
 	return (
 		<Stack.Navigator headerMode={'screen'}>
 			{Object.entries({
 				...appScreen,
-			}).map(([name, component]) => (
-				<Stack.Screen
-					key={name}
-					name={name}
-					component={component.screen}
-					options={{
-						cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-						...component.options,
-					}}
-				></Stack.Screen>
-			))}
+			}).map(([name, component]) => {
+				return (
+					<Stack.Screen
+						key={name}
+						name={name}
+						component={component.screen}
+						options={{
+							cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+							...component.options,
+						}}
+					></Stack.Screen>
+				);
+			})}
 		</Stack.Navigator>
 	);
 };
