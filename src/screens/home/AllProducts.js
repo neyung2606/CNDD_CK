@@ -30,7 +30,6 @@ const AllProducts = ({ navigation }) => {
 		input: '',
 	});
 	useEffect(() => {
-		console.log(navigation.navigate);
 		handleGetProducts();
 	}, []);
 	const handleGetProducts = () => {
