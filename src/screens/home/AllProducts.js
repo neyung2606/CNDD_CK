@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 
 import {
-	View,
-	Text,
 	FlatList,
 	Image,
 	StyleSheet,
@@ -13,7 +11,6 @@ import Block from '../../components/body/Block';
 import TextView from '../../components/body/TextView';
 import ButtonMain from '../../components/body/ButtonMain';
 import HeaderTop from './HeaderTop';
-import Search from '../Search';
 import { _navigation } from '../../constants';
 
 const W = Dimensions.get('window').width / 4;
@@ -56,6 +53,7 @@ const AllProducts = ({ navigation }) => {
 				shadow
 				padding={10}
 				color={'#fff'}
+				onPress={() => navigation.navigate(_navigation.Detail, { id: item.id })}
 			>
 				<Block direction="row">
 					<Image style={style.img} source={{ uri: item.image[0] }} />

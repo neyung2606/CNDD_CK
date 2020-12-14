@@ -24,6 +24,7 @@
     "@types/react": "^16.9.17",
     "@types/react-native": "^0.60.31",
     "@types/react-test-renderer": "^16.9.1",
+    "axios": "^0.21.0",
     "babel": "^6.23.0",
     "babel-plugin-inline-import": "^3.0.0",
     "babel-plugin-module-alias": "^1.6.0",

@@ -8,6 +8,8 @@ import Profile from '../../screens/Profile';
 import UpdateProfile from '../../screens/UpdateProfile';
 import ChangePassword from '../../screens/ChangePassword';
 import Search from '../../screens/Search';
+import Cart from '../../screens/Cart';
+import Checkout from '../../screens/Checkout';
 import {
 	CardStyleInterpolators,
 	createStackNavigator,
@@ -15,6 +17,7 @@ import {
 import { header } from './styles';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Detail from '../../screens/Detail';
 
 const headerComponent = ({ scene, previous, navigation }) => {
 	const { options } = scene.descriptor;
@@ -64,6 +67,13 @@ const bottomStack = {
 		options: {
 			title: 'Search',
 			tabBarIcon: () => <Icon name="search" size={30} />,
+		},
+	},
+	Cart: {
+		screen: Cart,
+		options: {
+			title: 'Cart',
+			tabBarIcon: () => <Icon name="shopping-cart" size={30} />
 		},
 	},
 };
@@ -121,6 +131,20 @@ const appScreen = {
 		screen: Search,
 		options: {
 			title: 'Search',
+			header: headerComponent,
+		},
+	},
+	Checkout: {
+		screen: Checkout,
+		options: {
+			title: 'Checkout',
+			header: headerComponent,
+		},
+	},
+	Detail: {
+		screen: Detail,
+		options: {
+			title: 'Detail',
 			header: headerComponent,
 		},
 	},
