@@ -6,6 +6,9 @@ export const _navigation = {
   UpdateProfile: 'UpdateProfile',
   ChangePassword: 'ChangePassword',
   Search: 'Search',
+  Cart: 'Cart',
+  Checkout: 'Checkout',
+  Detail: 'Detail',
 };
 
 export * from './theme';

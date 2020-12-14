@@ -8,12 +8,15 @@ import Profile from '../../screens/Profile';
 import UpdateProfile from '../../screens/UpdateProfile';
 import ChangePassword from '../../screens/ChangePassword';
 import Search from '../../screens/Search';
+import Cart from '../../screens/Cart';
+import Checkout from '../../screens/Checkout';
 import {
   CardStyleInterpolators,
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
 import {header} from './styles';
+import Detail from '../../screens/Detail';
 
 const headerComponent = ({scene, previous, navigation}) => {
   const {options} = scene.descriptor;
@@ -84,6 +87,24 @@ const appScreen = {
     screen: Search,
     options: {
       title: 'Search',
+    },
+  },
+  Cart: {
+    screen: Cart,
+    options: {
+      title: 'Cart',
+    },
+  },
+  Checkout: {
+    screen: Checkout,
+    options: {
+      title: 'Checkout',
+    },
+  },
+  Detail: {
+    screen: Detail,
+    options: {
+      title: 'Detail',
     },
   },
 };
