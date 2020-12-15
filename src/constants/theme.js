@@ -1,5 +1,5 @@
 const APPCOLOR = {
-  MAIN: '#2E2F44',
+  MAIN: '#FF6347',
   RAISE_HAND: {
     BG: '#ABE0F4e6',
     BTN_ACCEPT: '#2C7CF6',

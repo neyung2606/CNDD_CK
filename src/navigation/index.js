@@ -33,7 +33,6 @@
 		const authContext = useMemo(
 			() => ({
 				signIn: (token) => {
-					console.log(token);
 					dispatch({ type: 'LOGIN', payload: token });
 				},
 				signOut: () => {

@@ -58,8 +58,6 @@ const SignIn = ({navigation}) => {
           await AsyncStorage.setItem('token', responseJson.token);
           await AsyncStorage.setItem('username', data.username);
           const tk = await AsyncStorage.getItem('token');
-          // navigation.navigate(_navigation.Home);
-          console.log(SignIn)
           signIn(tk);
         } else if (responseJson.statusCode === 409) {
           alert('Vui long kiem tra lai user name pass');
