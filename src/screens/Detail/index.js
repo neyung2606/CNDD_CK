@@ -13,7 +13,7 @@ import {
 	Modal,
 	TouchableWithoutFeedback,
 	ActivityIndicator,
-	TextInput
+	TextInput,
 } from 'react-native';
 import { IconButton, Colors } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
@@ -89,7 +89,7 @@ const Detail = ({ route }) => {
 
 	const handleCart = async () => {
 		const getCart = await AsyncStorage.getItem('cart');
-		if (getCart !== '[]') {
+		if (getCart) {
 			const cart = JSON.parse(getCart);
 			const index = await cart.findIndex(
 				(item) => item.id_product === product.id

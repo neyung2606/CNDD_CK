@@ -26,10 +26,6 @@ const Profile = ({ navigation, route }) => {
 		isToken: false,
 	});
 
-	// const logout = async () => {
-	// 	await AsyncStorage.clear();
-	// 	navigation.navigate(_navigation.SignIn);
-	// };
 	const authenticate = async () => {
 		const token = await AsyncStorage.getItem('token');
 		const username = await AsyncStorage.getItem('username');
