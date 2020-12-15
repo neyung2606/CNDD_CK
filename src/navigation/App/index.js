@@ -72,10 +72,10 @@ const bottomStack = {
 	Cart: {
 		screen: Cart,
 		options: {
-			title: 'Cart',
-			tabBarIcon: () => <Icon name="shopping-cart" size={30} />
+			title: 'Cart Detail',
+			tabBarIcon: () => <Icon name="shopping-cart" size={30} />,
 		},
-	},
+	}
 };
 
 const Tab = createBottomTabNavigator();
@@ -109,7 +109,7 @@ const appScreen = {
 	UpdateProfile: {
 		screen: UpdateProfile,
 		options: {
-			title: 'UpdateProfile',
+			title: 'Update Profile',
 			header: headerComponent,
 		},
 	},
@@ -123,7 +123,7 @@ const appScreen = {
 	ChangePassword: {
 		screen: ChangePassword,
 		options: {
-			title: 'ChangePassword',
+			title: 'Change Password',
 			header: headerComponent,
 		},
 	},
@@ -148,6 +148,13 @@ const appScreen = {
 			header: headerComponent,
 		},
 	},
+	Cart: {
+		screen: Cart,
+		options: {
+			title: 'Cart Detail',
+			header: headerComponent,
+		},
+	}
 };
 
 const configSwitchScreen = {

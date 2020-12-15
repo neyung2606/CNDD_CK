@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo, useCallback } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { _navigation } from '../../constants';
@@ -9,9 +9,11 @@ const Cart = ({ navigation }) => {
 
 	useEffect(() => {
 		_retrieveData();
-	});
 
-	const _retrieveData = async () => {
+		return () => setData([]);
+	}, []);
+
+	const _retrieveData = useCallback(async () => {
 		try {
 			const value = await AsyncStorage.getItem('cart');
 			if (value !== null) {
@@ -21,12 +23,13 @@ const Cart = ({ navigation }) => {
 		} catch (error) {
 			// Error retrieving data
 		}
-	};
+	}, []);
 
 	const _Delete = async (i) => {
 		try {
 			data.splice(i, 1);
 			await AsyncStorage.setItem('cart', JSON.stringify(data));
+			_retrieveData()
 		} catch (error) {
 			// Error deleting data
 		}
@@ -34,7 +37,7 @@ const Cart = ({ navigation }) => {
 
 	const _ChangeQual = async (i, type) => {
 		try {
-			let cantd = data[i].quantity;
+			let cantd = Number.parseInt(data[i].quantity);
 			if (type) {
 				cantd = cantd + 1;
 				data[i].quantity = cantd;
@@ -44,6 +47,7 @@ const Cart = ({ navigation }) => {
 				data[i].quantity = cantd;
 				await AsyncStorage.setItem('cart', JSON.stringify(data));
 			}
+			_retrieveData()
 		} catch (error) {
 			// Error editing data
 		}
@@ -61,7 +65,9 @@ const Cart = ({ navigation }) => {
 	const _checkOut = async () => {
 		try {
 			const check = await AsyncStorage.getItem('cart');
+			const money = await LoadTotal()
 			if (check !== null && check.length !== 2) {
+				await AsyncStorage.setItem('money', JSON.stringify(money))
 				navigation.navigate(_navigation.Checkout);
 			} else {
 				alert('Your cart is empty!');
@@ -73,30 +79,25 @@ const Cart = ({ navigation }) => {
 
 	return (
 		<View style={styles.A}>
-			<View style={styles.B}>
-				<View style={styles.C} />
-				<Text style={styles.D}>Cart food</Text>
-				<View style={styles.C} />
-			</View>
 			<View style={styles.A}>
 				<ScrollView>
 					{data.map((item, i) => {
 						return (
-							<View style={styles.E}>
+							<View style={styles.E} key={i}>
 								<Image
 									resizeMode={'contain'}
 									style={styles.F}
-									source={{ uri: item.food?.image[0] }}
+									source={{ uri: item?.image[0] }}
 								/>
 								<View style={styles.G}>
 									<View style={styles.H}>
-										<Text style={styles.I}>{item.food?.name}</Text>
+										<Text style={styles.I}>{item?.name}</Text>
 										<View style={styles.J}>
 											<TouchableOpacity
 												style={styles.K}
 												onPress={() => _Delete(i)}
 											>
-												<Text style={styles.L}>x</Text>
+												<Text style={styles.L}>X</Text>
 											</TouchableOpacity>
 										</View>
 									</View>
@@ -142,4 +143,4 @@ const Cart = ({ navigation }) => {
 	);
 };
 
-export default Cart;
+export default memo(Cart);

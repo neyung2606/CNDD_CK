@@ -121,12 +121,12 @@ const Profile = ({ navigation, route }) => {
 			<View style={styles.menuWrapper}>
 				<TouchableRipple
 					onPress={() => {
-						alert('You chose favorite');
+						navigation.navigate(_navigation.Cart);
 					}}
 				>
 					<View style={styles.menuItem}>
-						<Icon name="heart-outline" color="red" size={25}></Icon>
-						<Text style={styles.menuItemText}>Your favorites</Text>
+						<Icon name="cart" size={25} color="red" />
+						<Text style={styles.menuItemText}>Order</Text>
 					</View>
 				</TouchableRipple>
 				<TouchableRipple

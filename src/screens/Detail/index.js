@@ -13,9 +13,10 @@ import {
 	Modal,
 	TouchableWithoutFeedback,
 	ActivityIndicator,
+	TextInput
 } from 'react-native';
 import { IconButton, Colors } from 'react-native-paper';
-import { TextInput } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 const Detail = ({ route }) => {
 	const [loading, setLoading] = useState(false);
@@ -87,18 +88,31 @@ const Detail = ({ route }) => {
 	};
 
 	const handleCart = async () => {
-    const cart = await AsyncStorage.getItem('cart');
-		if (cart) {
-			const productAdd = [
-				...JSON.parse(cart),
-				{
-					id_product: product.id,
-					price: product.price,
-					quantity: quantity,
-				},
-			];
-			await AsyncStorage.setItem('cart', JSON.stringify(productAdd));
-		} else
+		const getCart = await AsyncStorage.getItem('cart');
+		if (getCart !== '[]') {
+			const cart = JSON.parse(getCart);
+			const index = await cart.findIndex(
+				(item) => item.id_product === product.id
+			);
+			if (index === -1) {
+				const productAdd = [
+					...cart,
+					{
+						id_product: product.id,
+						price: product.price,
+						quantity: quantity,
+						image: product.image,
+					},
+				];
+				await AsyncStorage.setItem('cart', JSON.stringify(productAdd));
+			} else {
+				cart &&
+					(cart[index].quantity = `${
+						Number.parseInt(cart[index].quantity) + Number.parseInt(quantity)
+					}`);
+				await AsyncStorage.setItem('cart', JSON.stringify(cart));
+			}
+		} else {
 			await AsyncStorage.setItem(
 				'cart',
 				JSON.stringify([
@@ -106,9 +120,26 @@ const Detail = ({ route }) => {
 						id_product: product.id,
 						price: product.price,
 						quantity: quantity,
+						image: product.image,
 					},
 				])
 			);
+		}
+
+		setVisible(false);
+		Toast.show({
+			type: 'success',
+			position: 'top',
+			text1: 'Thông báo',
+			text2: 'Đã thêm vào giỏ hàng',
+			visibilityTime: 4000,
+			autoHide: true,
+			topOffset: 30,
+			bottomOffset: 40,
+			onShow: () => {},
+			onHide: () => {},
+			onPress: () => {},
+		});
 	};
 
 	return loading ? (
