@@ -44,7 +44,7 @@ const Search = ({ navigation }) => {
 			showedProducts: newShow,
 		});
 	};
-	const _renderItem = ({ item, navigation }) => {
+	const _renderItem = ({ item }) => {
 		return (
 			<Swiper
 				style={styles.container}
@@ -54,7 +54,9 @@ const Search = ({ navigation }) => {
 			>
 				<Card containerStyle={styles.cardContainer}>
 					<TouchableOpacity
-					// onPress={() => navigation.navigate('Detail', { data: item })}
+						onPress={() =>
+							navigation.navigate(_navigation.Detail, { id: item.id })
+						}
 					>
 						<Image
 							style={styles.image}
