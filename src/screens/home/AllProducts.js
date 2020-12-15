@@ -62,7 +62,7 @@ const AllProducts = ({ navigation }) => {
 							<TextView size={16}>{item.name}</TextView>
 							<TextView color="#AAAAAA"> {item.description}</TextView>
 						</Block>
-						<TextView size={16}>{item.price}</TextView>
+						<TextView size={16}>{item.price} Đ</TextView>
 					</Block>
 				</Block>
 			</ButtonMain>
@@ -78,7 +78,7 @@ const AllProducts = ({ navigation }) => {
 			>
 				<HeaderTop title="All Products" moreTitle="See all" />
 			</TouchableOpacity>
-			<FlatList horizontal data={showData} renderItem={renderItem} />
+			<FlatList vertival data={showData} renderItem={renderItem} />
 		</Block>
 	);
 };

@@ -11,6 +11,7 @@ export const _navigation = {
   Cart: 'Cart',
   Checkout: 'Checkout',
   Detail: 'Detail',
+  Category: 'Category'
 };
 
 export const WIDTH_SCREEN = Dimensions.get('screen').width;

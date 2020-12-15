@@ -9,8 +9,6 @@ const Cart = ({ navigation }) => {
 
 	useEffect(() => {
 		_retrieveData();
-
-		return () => setData([]);
 	}, []);
 
 	const _retrieveData = useCallback(async () => {
@@ -18,6 +16,7 @@ const Cart = ({ navigation }) => {
 			const value = await AsyncStorage.getItem('cart');
 			if (value !== null) {
 				const cartfood = JSON.parse(value);
+				console.log(cartfood)
 				setData(cartfood);
 			}
 		} catch (error) {

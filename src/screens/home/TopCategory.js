@@ -17,10 +17,13 @@ import ButtonMain from '../../components/body/ButtonMain';
 
 const W = Dimensions.get('window').width / 4;
 
-const TopCategory = () => {
+const TopCategory = ({ navigation }) => {
 	const renderItem = ({ item }) => {
 		return (
-			<ButtonMain padding={5}>
+			<ButtonMain
+				padding={5}
+				onPress={() => navigation.navigate(_navigation.Category, {name: item.value})}
+			>
 				<Image style={style.img} source={{ uri: item.image }} />
 				<TextView padding={8} center>
 					{item.name}

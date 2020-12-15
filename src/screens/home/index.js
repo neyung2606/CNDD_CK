@@ -25,7 +25,7 @@ const Home = ({ navigation }) => {
 
 	return (
 		<ScrollView style={{height: Dimensions.get('screen').height}}>
-			<TopCategory></TopCategory>
+			<TopCategory navigation={navigation}></TopCategory>
 			<Block height={1} color="#EFEEEE" />
 			<PopularItems></PopularItems>
 			<Block height={1} color="#EFEEEE" />

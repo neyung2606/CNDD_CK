@@ -10,6 +10,7 @@ import ChangePassword from '../../screens/ChangePassword';
 import Search from '../../screens/Search';
 import Cart from '../../screens/Cart';
 import Checkout from '../../screens/Checkout';
+import Category from '../../screens/categories'
 import {
 	CardStyleInterpolators,
 	createStackNavigator,
@@ -69,13 +70,13 @@ const bottomStack = {
 			tabBarIcon: () => <Icon name="search" size={30} />,
 		},
 	},
-	Cart: {
-		screen: Cart,
-		options: {
-			title: 'Cart Detail',
-			tabBarIcon: () => <Icon name="shopping-cart" size={30} />,
-		},
-	}
+	// Cart: {
+	// 	screen: Cart,
+	// 	options: {
+	// 		title: 'Cart Detail',
+	// 		tabBarIcon: () => <Icon name="shopping-cart" size={30} />,
+	// 	},
+	// }
 };
 
 const Tab = createBottomTabNavigator();
@@ -152,6 +153,13 @@ const appScreen = {
 		screen: Cart,
 		options: {
 			title: 'Cart Detail',
+			header: headerComponent,
+		},
+	},
+	Category: {
+		screen: Category,
+		options: {
+			title: 'Category',
 			header: headerComponent,
 		},
 	}
