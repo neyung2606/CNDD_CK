@@ -8,6 +8,7 @@ import {
 	TextInput,
 	ScrollView,
 	StatusBar,
+	Alert,
 } from 'react-native';
 import { url, _navigation } from '../../constants';
 import styles from './styles';
@@ -19,6 +20,9 @@ const Checkout = ({ navigation }) => {
 		name: '',
 		phone: '',
 		address: '',
+		isValidFullName: true,
+		isValidPhoneNumber: true,
+		isValidAddress: true,
 	});
 
 	const authenticate = async () => {
@@ -54,8 +58,51 @@ const Checkout = ({ navigation }) => {
 	useEffect(() => {
 		authenticate();
 	}, []);
-
-	const handleAddressChange = (val) => {};
+	const handlePhoneNumberChange = (val) => {
+		if (val.trim().length === 10) {
+			setData({
+				...data,
+				phone: val,
+				isValidPhoneNumber: true,
+			});
+		} else {
+			setData({
+				...data,
+				phone: val,
+				isValidPhoneNumber: false,
+			});
+		}
+	};
+	const textInputChange_fullname = (val) => {
+		if (val.trim().length >= 1) {
+			setData({
+				...data,
+				name: val,
+				isValidFullName: true,
+			});
+		} else {
+			setData({
+				...data,
+				name: val,
+				isValidFullName: false,
+			});
+		}
+	};
+	const textInputChange_address = (val) => {
+		if (val.trim().length >= 1) {
+			setData({
+				...data,
+				address: val,
+				isValidAddress: true,
+			});
+		} else {
+			setData({
+				...data,
+				address: val,
+				isValidAddress: false,
+			});
+		}
+	};
 
 	const _handleResquestOrder = async () => {
 		const token = await AsyncStorage.getItem('token');
@@ -75,30 +122,42 @@ const Checkout = ({ navigation }) => {
 			totalMoney: money,
 			productOrder: productOrder,
 		};
-		axios
-			.post(`${url}/orders/create`, order, {
-				headers: { Authorization: `Bearer ${token}` },
-			})
-			.then((res) => {
-				console.log(res);
-			})
-			.catch(() => console.log('err'));
+		if (
+			order.name.trim().length >= 1 &&
+			order.phone.trim().length === 10 &&
+			order.address.trim().length >= 1
+		) {
+			axios
+				.post(`${url}/orders/create`, order, {
+					headers: { Authorization: `Bearer ${token}` },
+				})
+				.then((res) => {
+					console.log(res);
+				})
+				.catch(() => console.log('err'));
 
-		Toast.show({
-			type: 'success',
-			position: 'top',
-			text1: 'Thông báo',
-			text2: 'Đặt hàng thành công',
-			visibilityTime: 4000,
-			autoHide: true,
-			topOffset: 30,
-			bottomOffset: 40,
-			onShow: () => {},
-			onHide: () => {},
-			onPress: () => {},
-		});
-		navigation.navigate(_navigation.Home);
-		await AsyncStorage.removeItem('cart', 'money');
+			Toast.show({
+				type: 'success',
+				position: 'top',
+				text1: 'Thông báo',
+				text2: 'Đặt hàng thành công',
+				visibilityTime: 4000,
+				autoHide: true,
+				topOffset: 30,
+				bottomOffset: 40,
+				onShow: () => {},
+				onHide: () => {},
+				onPress: () => {},
+			});
+			navigation.navigate(_navigation.Home);
+			await AsyncStorage.removeItem('cart');
+			await AsyncStorage.removeItem('money');
+		} else {
+			alert(
+				'Username & Address must not be empty & Phone number must be 10 digits'
+			);
+			console.log('Sai kia!!!');
+		}
 	};
 
 	return (
@@ -110,12 +169,19 @@ const Checkout = ({ navigation }) => {
 
 				<Text style={styles.F}>Full Name</Text>
 				<View style={styles.G}>
-					<TextInput value={data?.name} />
+					<TextInput
+						value={data?.name}
+						onChangeText={(val) => textInputChange_fullname(val)}
+					/>
 				</View>
 
 				<Text style={styles.F}>Phone Number</Text>
 				<View style={styles.G}>
-					<TextInput value={data?.phone} />
+					<TextInput
+						value={data?.phone}
+						keyboardType="number-pad"
+						onChangeText={(val) => handlePhoneNumberChange(val)}
+					/>
 				</View>
 
 				<Text style={styles.F}>Address</Text>
@@ -123,7 +189,7 @@ const Checkout = ({ navigation }) => {
 					<TextInput
 						value={data?.address}
 						style={styles.H}
-						onChangeText={(val) => handleAddressChange(val)}
+						onChangeText={(val) => textInputChange_address(val)}
 					/>
 				</View>
 				<View style={styles.K}>
