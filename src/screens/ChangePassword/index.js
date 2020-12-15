@@ -106,7 +106,6 @@ const ChangePassword = ({navigation}) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson);
         if (responseJson.statusCode === 404) {
           alert('Old password wrong, please try again');
         } else {
@@ -241,7 +240,6 @@ const ChangePassword = ({navigation}) => {
         <TouchableOpacity
           style={styles.commandButton}
           onPress={() => {
-            console.log(data.oldpass, data.password, data.confirm_password);
             if (
               data.isValidCurrentPassword &&
               data.isValidPassword &&

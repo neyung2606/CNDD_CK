@@ -57,7 +57,6 @@ const updateprofile = ({navigation}) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson);
         if (responseJson.id && responseJson.dayOfBirth) {
           setData({
             ...data,
