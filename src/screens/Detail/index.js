@@ -3,6 +3,8 @@ import { url } from '../../constants';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import { styles } from './styles';
+import {AddComment} from '../../components/body/addComment';
+// import {FeedBack} from '../../components/body/feedback';
 import {
 	Image,
 	ScrollView,
@@ -126,7 +128,6 @@ const Detail = ({ route }) => {
 				])
 			);
 		}
-
 		setVisible(false);
 		Toast.show({
 			type: 'success',
@@ -162,7 +163,10 @@ const Detail = ({ route }) => {
 						style={{ backgroundColor: 'red' }}
 						onPress={() => setVisible(true)}
 					/>
+			
 				</View>
+				{/* <FeedBack/> */}
+				<AddComment productId={product?.name} />
 			</View>
 			<Modal
 				visible={visible}
@@ -201,6 +205,7 @@ const Detail = ({ route }) => {
 									source={{ uri: `${product?.image[0]}` }}
 								/>
 							)}
+							
 
 							<View style={{ flex: 1 }}>
 								<Text style={{ fontSize: 18, marginBottom: 5 }}>
