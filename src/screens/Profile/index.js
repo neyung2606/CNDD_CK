@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { _navigation } from '../../constants';
 import { AuthContext } from '../../stores';
 import styles from './styles';
+import { TouchableOpacity } from 'react-native';
 const Profile = ({ navigation, route }) => {
 	const { signOut } = useContext(AuthContext);
 	const [data, setData] = React.useState({
@@ -28,15 +29,9 @@ const Profile = ({ navigation, route }) => {
 
 	const authenticate = async () => {
 		const token = await AsyncStorage.getItem('token');
-		const username = await AsyncStorage.getItem('username');
-		if (token && username) {
-			loadProfile(username, token);
-		} else {
-			alert('Please log in to continue');
-			navigation.navigate(_navigation.SignIn);
-		}
+		loadProfile(token);
 	};
-	const loadProfile = async (username, token) => {
+	const loadProfile = async (token) => {
 		fetch('http://evening-wildwood-46158.herokuapp.com/me', {
 			method: 'GET',
 			headers: {
@@ -122,7 +117,7 @@ const Profile = ({ navigation, route }) => {
 				>
 					<View style={styles.menuItem}>
 						<Icon name="cart" size={25} color="red" />
-						<Text style={styles.menuItemText}>Order</Text>
+						<Text style={styles.menuItemText}>History Order</Text>
 					</View>
 				</TouchableRipple>
 				<TouchableRipple

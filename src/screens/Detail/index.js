@@ -3,7 +3,7 @@ import { url } from '../../constants';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import { styles } from './styles';
-import {AddComment} from '../../components/body/addComment';
+import {AddComment} from './components/addComment';
 // import {FeedBack} from '../../components/body/feedback';
 import {
 	Image,
@@ -166,7 +166,7 @@ const Detail = ({ route }) => {
 			
 				</View>
 				{/* <FeedBack/> */}
-				<AddComment productId={product?.name} />
+				<AddComment productId={id} />
 			</View>
 			<Modal
 				visible={visible}

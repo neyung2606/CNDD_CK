@@ -10,7 +10,7 @@ import ChangePassword from '../../screens/ChangePassword';
 import Search from '../../screens/Search';
 import Cart from '../../screens/Cart';
 import Checkout from '../../screens/Checkout';
-import Category from '../../screens/categories'
+import Category from '../../screens/categories';
 import {
 	CardStyleInterpolators,
 	createStackNavigator,
@@ -27,6 +27,8 @@ const headerComponent = ({ scene, previous, navigation }) => {
 			? options.headerTitle
 			: options.title !== undefined
 			? options.title
+			: scene.route.params?.name
+			? scene.route.params?.name
 			: scene.route.name;
 	return (
 		<Header
@@ -53,30 +55,30 @@ const bottomStack = {
 		screen: Home,
 		options: {
 			title: 'Home',
-			tabBarIcon: () => <Icon name="home" size={30} />,
+			tabBarIcon: () => <Icon name="home" size={30} color="red" />,
 		},
 	},
 	Profile: {
 		screen: Profile,
 		options: {
 			title: 'Profile',
-			tabBarIcon: () => <Icon name="user" size={30} />,
+			tabBarIcon: () => <Icon name="user" size={30} color="red" />,
 		},
 	},
 	Search: {
 		screen: Search,
 		options: {
 			title: 'Search',
-			tabBarIcon: () => <Icon name="search" size={30} />,
+			tabBarIcon: () => <Icon name="search" size={30} color="red" />,
 		},
 	},
-	// Cart: {
-	// 	screen: Cart,
-	// 	options: {
-	// 		title: 'Cart Detail',
-	// 		tabBarIcon: () => <Icon name="shopping-cart" size={30} />,
-	// 	},
-	// }
+	Cart: {
+		screen: Cart,
+		options: {
+			title: 'Cart Detail',
+			tabBarIcon: () => <Icon name="shopping-cart" size={30} color="red" />,
+		},
+	},
 };
 
 const Tab = createBottomTabNavigator();
@@ -149,20 +151,12 @@ const appScreen = {
 			header: headerComponent,
 		},
 	},
-	Cart: {
-		screen: Cart,
-		options: {
-			title: 'Cart Detail',
-			header: headerComponent,
-		},
-	},
 	Category: {
 		screen: Category,
 		options: {
-			title: 'Category',
 			header: headerComponent,
 		},
-	}
+	},
 };
 
 const configSwitchScreen = {

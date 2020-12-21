@@ -49,6 +49,7 @@ const SignIn = ({navigation}) => {
     })
       .then((response) => response.json())
       .then(async (responseJson) => {
+        console.log(responseJson)
         if (responseJson.token !== '' && responseJson.statusCode !== 409) {
           setData({
             ...data,
@@ -56,7 +57,6 @@ const SignIn = ({navigation}) => {
             isToken: true,
           });
           await AsyncStorage.setItem('token', responseJson.token);
-          await AsyncStorage.setItem('username', data.username);
           const tk = await AsyncStorage.getItem('token');
           signIn(tk);
         } else if (responseJson.statusCode === 409) {

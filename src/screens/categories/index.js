@@ -28,7 +28,6 @@ const Category = ({ navigation, route }) => {
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then((res) => {
-                console.log(res.data[0].product)
 				setData(res.data[0].product);
 			})
 			.catch(() => console.log('err'));

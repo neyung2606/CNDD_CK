@@ -8,27 +8,30 @@ const Cart = ({ navigation }) => {
 	const [data, setData] = useState([]);
 
 	useEffect(() => {
-		_retrieveData();
-	}, []);
+		const unsubscribe = navigation.addListener('focus', () => {
+			_retrieveData();
+		});
+		return unsubscribe;
+	}, [navigation]);
 
-	const _retrieveData = useCallback(async () => {
+	const _retrieveData = async () => {
 		try {
 			const value = await AsyncStorage.getItem('cart');
 			if (value !== null) {
 				const cartfood = JSON.parse(value);
-				console.log(cartfood)
+				console.log(cartfood);
 				setData(cartfood);
 			}
 		} catch (error) {
 			// Error retrieving data
 		}
-	}, []);
+	};
 
 	const _Delete = async (i) => {
 		try {
 			data.splice(i, 1);
 			await AsyncStorage.setItem('cart', JSON.stringify(data));
-			_retrieveData()
+			_retrieveData();
 		} catch (error) {
 			// Error deleting data
 		}
@@ -46,7 +49,7 @@ const Cart = ({ navigation }) => {
 				data[i].quantity = cantd;
 				await AsyncStorage.setItem('cart', JSON.stringify(data));
 			}
-			_retrieveData()
+			_retrieveData();
 		} catch (error) {
 			// Error editing data
 		}
@@ -64,9 +67,9 @@ const Cart = ({ navigation }) => {
 	const _checkOut = async () => {
 		try {
 			const check = await AsyncStorage.getItem('cart');
-			const money = await LoadTotal()
+			const money = await LoadTotal();
 			if (check !== null && check.length !== 2) {
-				await AsyncStorage.setItem('money', JSON.stringify(money))
+				await AsyncStorage.setItem('money', JSON.stringify(money));
 				navigation.navigate(_navigation.Checkout);
 			} else {
 				alert('Your cart is empty!');

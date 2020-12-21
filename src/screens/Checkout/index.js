@@ -27,16 +27,15 @@ const Checkout = ({ navigation }) => {
 
 	const authenticate = async () => {
 		const token = await AsyncStorage.getItem('token');
-		const username = await AsyncStorage.getItem('username');
-		if (token && username) {
-			loadProfile(username, token);
+		if (token ) {
+			loadProfile(token);
 		} else {
 			alert('Please log in to continue');
 			navigation.navigate(_navigation.SignIn);
 		}
 	};
 
-	const loadProfile = async (username, token) => {
+	const loadProfile = async (token) => {
 		fetch('http://evening-wildwood-46158.herokuapp.com/me', {
 			method: 'GET',
 			headers: {
