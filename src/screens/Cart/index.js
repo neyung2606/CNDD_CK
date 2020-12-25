@@ -19,7 +19,6 @@ const Cart = ({ navigation }) => {
 			const value = await AsyncStorage.getItem('cart');
 			if (value !== null) {
 				const cartfood = JSON.parse(value);
-				console.log(cartfood);
 				setData(cartfood);
 			}
 		} catch (error) {

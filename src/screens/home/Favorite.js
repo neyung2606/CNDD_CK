@@ -50,7 +50,7 @@ const Favorite = () => {
 					</Block>
 
 					<Block style={style.saleoff}>
-						<TextView color="#fff" bgColor="#FF6347">
+						<TextView color="#fff" bgColor="#0066FF">
 							<Feather name="thumbs-up" size={15} />
 							Favorite
 						</TextView>

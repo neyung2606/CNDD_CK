@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 
 import {
 	FlatList,
@@ -21,7 +21,7 @@ const style = StyleSheet.create({
 		borderRadius: 8,
 	},
 });
-const AllProducts = ({ navigation }) => {
+const AllProducts = ({ navigation, setLoading }) => {
 	const [data, setData] = React.useState({
 		products: [],
 		input: '',
@@ -30,6 +30,7 @@ const AllProducts = ({ navigation }) => {
 		handleGetProducts();
 	}, []);
 	const handleGetProducts = () => {
+		setLoading(true);
 		fetch('https://evening-wildwood-46158.herokuapp.com/products', {
 			method: 'GET',
 			headers: {
@@ -43,6 +44,7 @@ const AllProducts = ({ navigation }) => {
 					...data,
 					products: data,
 				});
+				setLoading(false);
 			});
 	};
 	const renderItem = ({ item }) => {
@@ -62,7 +64,7 @@ const AllProducts = ({ navigation }) => {
 							<TextView size={16}>{item.name}</TextView>
 							<TextView color="#AAAAAA"> {item.description}</TextView>
 						</Block>
-						<TextView size={16}>{item.price} Đ</TextView>
+						<TextView size={16}>{item.price} VNĐ</TextView>
 					</Block>
 				</Block>
 			</ButtonMain>
@@ -83,4 +85,4 @@ const AllProducts = ({ navigation }) => {
 	);
 };
 
-export default AllProducts;
+export default memo(AllProducts);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -15,8 +15,11 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {_navigation} from '../../constants';
 import styles from './styles';
+import Spinner from 'react-native-loading-spinner-overlay';
+import Toast from 'react-native-toast-message';
+
 const SignUp = ({navigation}) => {
-  const [data, setData] = React.useState({
+  const [data, setData] = useState({
     username: '',
     email: '',
     phonenumber: '',
@@ -33,6 +36,7 @@ const SignUp = ({navigation}) => {
     isValidPassword: true,
     isValidConfirmPassword: true,
   });
+  const [loading, setLoading] = useState(false);
 
   const textInputChange = (val) => {
     if (val.trim().length >= 4) {
@@ -114,6 +118,7 @@ const SignUp = ({navigation}) => {
     });
   };
   const handleRegister = async () => {
+    setLoading(true);
     fetch('https://evening-wildwood-46158.herokuapp.com/auth/register', {
       method: 'POST',
       headers: {
@@ -129,17 +134,48 @@ const SignUp = ({navigation}) => {
     })
       .then((response) => response.json())
       .then(async (responseJson) => {
-        if (responseJson.statusCode === 500) {
-          alert('Account username already in DB');
+        if (responseJson.statusCode === 404) {
+          setLoading(false);
+          Toast.show({
+            type: 'error',
+            position: 'top',
+            text1: 'Thông báo',
+            text2: 'Đăng ký thất bại, username đã tồn tại',
+            visibilityTime: 4000,
+            autoHide: true,
+            topOffset: 30,
+            bottomOffset: 40,
+            onShow: () => {},
+            onHide: () => {},
+            onPress: () => {},
+          });
         } else {
-          alert('Succeed');
+          setLoading(false);
+          Toast.show({
+            type: 'success',
+            position: 'top',
+            text1: 'Thông báo',
+            text2: 'Đăng ký thành công',
+            visibilityTime: 4000,
+            autoHide: true,
+            topOffset: 30,
+            bottomOffset: 40,
+            onShow: () => {},
+            onHide: () => {},
+            onPress: () => {},
+          });
           navigation.navigate(_navigation.SignIn);
         }
       });
   };
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#FF6347" barStyle="light-content" />
+      <Spinner
+				visible={loading}
+				textContent={'Loading'}
+				textStyle={{ color: 'white' }}
+			/>
+      <StatusBar backgroundColor="#0066FF" barStyle="light-content" />
       <View style={styles.header}>
         <Text style={styles.text_header}>Register Now!</Text>
       </View>
@@ -275,7 +311,7 @@ const SignUp = ({navigation}) => {
                 }
               }}>
               <LinearGradient
-                colors={['#FFA07A', '#FF6347']}
+                colors={['#0066FF', '#0066FF']}
                 style={styles.signIn}>
                 <Text
                   style={[
@@ -294,7 +330,7 @@ const SignUp = ({navigation}) => {
               style={[
                 styles.signIn,
                 {
-                  borderColor: '#FF6347',
+                  borderColor: '#0066FF',
                   borderWidth: 1,
                   marginTop: 15,
                 },
@@ -303,7 +339,7 @@ const SignUp = ({navigation}) => {
                 style={[
                   styles.textSign,
                   {
-                    color: '#FF6347',
+                    color: '#0066FF',
                   },
                 ]}>
                 Sign In

@@ -6,7 +6,7 @@ export default StyleSheet.create({
     backgroundColor: 'white',
   },
   B: {
-    backgroundColor:'#FF6347',
+    backgroundColor:'#0066FF',
     alignItems:'center',
   },
   C: {
@@ -62,7 +62,7 @@ export default StyleSheet.create({
     fontWeight: '200',
   },
   N: {
-    backgroundColor:'#FF6347',
+    backgroundColor:'#0066FF',
     width:width-40,
     alignItems:'center',
     padding:10,

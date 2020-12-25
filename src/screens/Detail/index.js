@@ -3,8 +3,8 @@ import { url } from '../../constants';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import { styles } from './styles';
-import {AddComment} from './components/addComment';
-// import {FeedBack} from '../../components/body/feedback';
+import { AddComment } from './components/addComment';
+
 import {
 	Image,
 	ScrollView,
@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 import { IconButton, Colors } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const Detail = ({ route }) => {
 	const [loading, setLoading] = useState(false);
@@ -29,22 +30,20 @@ const Detail = ({ route }) => {
 
 	useEffect(() => {
 		getProduct();
-
-		setTimeout(() => {
-			setLoading(true);
-		}, 2000);
 	}, []);
 
 	const getProduct = async () => {
+		setLoading(true);
 		const token = await AsyncStorage.getItem('token');
 		axios
 			.get(`${url}/products?id=${id}`, {
 				headers: { Authorization: `Bearer ${token}` },
 			})
 			.then((res) => {
+				setLoading(false);
 				setProduct(res.data[0]);
 			})
-			.catch(() => console.log('err'));
+			.catch(() => setLoading(false));
 	};
 
 	const addQuantity = () => {
@@ -90,6 +89,7 @@ const Detail = ({ route }) => {
 	};
 
 	const handleCart = async () => {
+		setLoading(true);
 		const getCart = await AsyncStorage.getItem('cart');
 		if (getCart) {
 			const cart = JSON.parse(getCart);
@@ -106,7 +106,6 @@ const Detail = ({ route }) => {
 						image: product.image,
 					},
 				];
-				console.log(productAdd)
 				await AsyncStorage.setItem('cart', JSON.stringify(productAdd));
 			} else {
 				cart &&
@@ -129,6 +128,7 @@ const Detail = ({ route }) => {
 			);
 		}
 		setVisible(false);
+		setLoading(false);
 		Toast.show({
 			type: 'success',
 			position: 'top',
@@ -144,8 +144,9 @@ const Detail = ({ route }) => {
 		});
 	};
 
-	return loading ? (
+	return (
 		<ScrollView style={styles.container}>
+			<Spinner textStyle={{ color: 'white'}} visible={loading} textContent={"Loading"} />
 			{product.image && (
 				<Image style={styles.img} source={{ uri: `${product?.image[0]}` }} />
 			)}
@@ -163,7 +164,6 @@ const Detail = ({ route }) => {
 						style={{ backgroundColor: 'red' }}
 						onPress={() => setVisible(true)}
 					/>
-			
 				</View>
 				{/* <FeedBack/> */}
 				<AddComment productId={id} />
@@ -205,7 +205,6 @@ const Detail = ({ route }) => {
 									source={{ uri: `${product?.image[0]}` }}
 								/>
 							)}
-							
 
 							<View style={{ flex: 1 }}>
 								<Text style={{ fontSize: 18, marginBottom: 5 }}>
@@ -276,17 +275,6 @@ const Detail = ({ route }) => {
 				</View>
 			</Modal>
 		</ScrollView>
-	) : (
-		<View
-			style={{
-				flex: 1,
-				justifyContent: 'center',
-				alignItems: 'center',
-				backgroundColor: '#000000AA',
-			}}
-		>
-			<ActivityIndicator size="large" color="#00ff00" />
-		</View>
 	);
 };
 

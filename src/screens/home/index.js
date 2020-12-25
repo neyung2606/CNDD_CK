@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
 	View,
 	Text,
@@ -18,20 +18,26 @@ import Favorite from './Favorite';
 import AllProducts from './AllProducts';
 import AsyncStorage from '@react-native-community/async-storage';
 import { AuthContext } from '../../stores';
+import Spinner from 'react-native-loading-spinner-overlay';
 const W = Dimensions.get('window').width / 4;
 
 const Home = ({ navigation }) => {
 	const { signOut } = useContext(AuthContext);
+	const [loading, setLoading] = useState(false);
 
 	return (
-		<ScrollView style={{height: Dimensions.get('screen').height}}>
+		<ScrollView style={{ height: Dimensions.get('screen').height }}>
+			<Spinner visible={loading} textContent={'Loading'} textStyle={{ color: 'white'}} />
 			<TopCategory navigation={navigation}></TopCategory>
 			<Block height={1} color="#EFEEEE" />
 			<PopularItems></PopularItems>
 			<Block height={1} color="#EFEEEE" />
 			{/* <Favorite></Favorite> */}
 			<Block height={1} color="#EFEEEE" />
-			<AllProducts navigation={navigation}></AllProducts>
+			<AllProducts
+				navigation={navigation}
+				setLoading={setLoading}
+			></AllProducts>
 		</ScrollView>
 	);
 };

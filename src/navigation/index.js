@@ -56,8 +56,6 @@ const AppContainer = () => {
 			: dispatch({ type: 'LOGOUT' });
 	};
 
-	console.log(loginState);
-
 	return (
 		<AuthContext.Provider value={authContext}>
 			<NavigationContainer>

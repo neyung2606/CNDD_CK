@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState, memo } from 'react';
 import { View, SafeAreaView } from 'react-native';
 import {
 	Avatar,
@@ -12,10 +12,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { _navigation } from '../../constants';
 import { AuthContext } from '../../stores';
 import styles from './styles';
-import { TouchableOpacity } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
+
 const Profile = ({ navigation, route }) => {
 	const { signOut } = useContext(AuthContext);
-	const [data, setData] = React.useState({
+	const [data, setData] = useState({
 		username: '',
 		fullname: '',
 		phonenumber: '',
@@ -26,12 +27,14 @@ const Profile = ({ navigation, route }) => {
 		token: '',
 		isToken: false,
 	});
+	const [loading, setLoading] = useState(false);
 
 	const authenticate = async () => {
 		const token = await AsyncStorage.getItem('token');
 		loadProfile(token);
 	};
 	const loadProfile = async (token) => {
+		setLoading(true);
 		fetch('http://evening-wildwood-46158.herokuapp.com/me', {
 			method: 'GET',
 			headers: {
@@ -52,6 +55,7 @@ const Profile = ({ navigation, route }) => {
 						phonenumber: responseJson.phone,
 						role: responseJson.role.name,
 					});
+					setLoading(false);
 				}
 			});
 	};
@@ -60,6 +64,11 @@ const Profile = ({ navigation, route }) => {
 	}, [route]);
 	return (
 		<SafeAreaView style={styles.container}>
+			<Spinner
+				visible={loading}
+				textContent={'Loading'}
+				textStyle={{ color: 'white' }}
+			/>
 			<View style={styles.userInfoSection}>
 				<View style={{ flexDirection: 'row', marginTop: 15 }}>
 					<Avatar.Image
@@ -116,7 +125,7 @@ const Profile = ({ navigation, route }) => {
 					}}
 				>
 					<View style={styles.menuItem}>
-						<Icon name="cart" size={25} color="red" />
+						<Icon name="cart" size={25} color="#0066FF" />
 						<Text style={styles.menuItemText}>History Order</Text>
 					</View>
 				</TouchableRipple>
@@ -126,7 +135,7 @@ const Profile = ({ navigation, route }) => {
 					}}
 				>
 					<View style={styles.menuItem}>
-						<Icon name="account-edit" color="red" size={25}></Icon>
+						<Icon name="account-edit" color="#0066FF" size={25}></Icon>
 						<Text style={styles.menuItemText}>Edit your profile</Text>
 					</View>
 				</TouchableRipple>
@@ -136,7 +145,7 @@ const Profile = ({ navigation, route }) => {
 					}}
 				>
 					<View style={styles.menuItem}>
-						<Icon name="lock-outline" color="red" size={25}></Icon>
+						<Icon name="lock-outline" color="#0066FF" size={25}></Icon>
 						<Text style={styles.menuItemText}>Change password</Text>
 					</View>
 				</TouchableRipple>
@@ -146,13 +155,13 @@ const Profile = ({ navigation, route }) => {
 					}}
 				>
 					<View style={styles.menuItem}>
-						<Icon name="account-check-outline" color="red" size={25}></Icon>
+						<Icon name="account-check-outline" color="#0066FF" size={25}></Icon>
 						<Text style={styles.menuItemText}>Support</Text>
 					</View>
 				</TouchableRipple>
 				<TouchableRipple onPress={() => signOut()}>
 					<View style={styles.menuItem}>
-						<Icon name="exit-to-app" color="red" size={25}></Icon>
+						<Icon name="exit-to-app" color="#0066FF" size={25}></Icon>
 						<Text style={styles.menuItemText}>Log out</Text>
 					</View>
 				</TouchableRipple>
@@ -161,4 +170,4 @@ const Profile = ({ navigation, route }) => {
 	);
 };
 
-export default Profile;
+export default memo(Profile);

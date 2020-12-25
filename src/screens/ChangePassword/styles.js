@@ -6,7 +6,7 @@ export default StyleSheet.create({
   commandButton: {
     padding: 15,
     borderRadius: 10,
-    backgroundColor: '#FF6347',
+    backgroundColor: '#0066FF',
     alignItems: 'center',
     marginTop: 10,
   },
@@ -52,7 +52,7 @@ export default StyleSheet.create({
   panelButton: {
     padding: 13,
     borderRadius: 10,
-    backgroundColor: '#FF6347',
+    backgroundColor: '#0066FF',
     alignItems: 'center',
     marginVertical: 7,
   },

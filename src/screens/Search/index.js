@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	View,
 	FlatList,
@@ -9,17 +9,22 @@ import styles from './styles';
 import { Header, Card, Image, Text, Input } from 'react-native-elements';
 import { _navigation } from '../../constants';
 import Swiper from 'react-native-swiper';
+import Spinner from 'react-native-loading-spinner-overlay';
+
 const numberOfColumns = 2;
 const Search = ({ navigation }) => {
-	const [data, setData] = React.useState({
+	const [data, setData] = useState({
 		products: [],
 		showedProducts: [],
 		input: '',
 	});
+	const [loading, setLoading] = useState(false);
+
 	useEffect(() => {
 		handleGetProducts();
 	}, []);
 	const handleGetProducts = () => {
+		setLoading(true);
 		fetch('https://evening-wildwood-46158.herokuapp.com/products', {
 			method: 'GET',
 			headers: {
@@ -34,6 +39,7 @@ const Search = ({ navigation }) => {
 					products: data,
 					showedProducts: data,
 				});
+				setLoading(false);
 			});
 	};
 	const handleSearch = (value) => {
@@ -126,6 +132,11 @@ const Search = ({ navigation }) => {
 	const showData = data.showedProducts;
 	return (
 		<View>
+			<Spinner
+				visible={loading}
+				textContent={'Loading'}
+				textStyle={{ color: 'white' }}
+			/>
 			<Input
 				placeholder="Search"
 				style={styles.searchContainer}

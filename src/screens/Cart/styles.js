@@ -5,7 +5,7 @@ export default StyleSheet.create({
 		flex: 1,
 	},
 	B: {
-		backgroundColor: '#FF6347',
+		backgroundColor: '#0066FF',
 		alignItems: 'center',
 	},
 	C: {
@@ -67,7 +67,7 @@ export default StyleSheet.create({
     fontSize: 20,
 	},
 	N: {
-		backgroundColor: '#FF6347',
+		backgroundColor: '#0066FF',
 		padding: 8,
 		borderRadius: 1000,
 	},
@@ -86,7 +86,7 @@ export default StyleSheet.create({
 		fontSize: 20,
 	},
 	R: {
-		backgroundColor: '#FF6347',
+		backgroundColor: '#0066FF',
 		width: width - 40,
 		alignItems: 'center',
 		padding: 10,

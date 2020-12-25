@@ -27,7 +27,7 @@ export const header = StyleSheet.create({
 		display: 'flex',
 		justifyContent: 'center',
 		flexDirection: 'row',
-		backgroundColor: '#FF6347',
+		backgroundColor: '#0066FF',
 		// borderColor: 'white',
 	},
 });

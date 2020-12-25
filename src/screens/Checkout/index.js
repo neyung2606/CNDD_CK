@@ -13,9 +13,10 @@ import {
 import { url, _navigation } from '../../constants';
 import styles from './styles';
 import Toast from 'react-native-toast-message';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const Checkout = ({ navigation }) => {
-	const [data, setData] = React.useState({
+	const [data, setData] = useState({
 		id: '',
 		name: '',
 		phone: '',
@@ -24,6 +25,7 @@ const Checkout = ({ navigation }) => {
 		isValidPhoneNumber: true,
 		isValidAddress: true,
 	});
+	const [loading, setLoading] = useState(false);
 
 	const authenticate = async () => {
 		const token = await AsyncStorage.getItem('token');
@@ -36,6 +38,7 @@ const Checkout = ({ navigation }) => {
 	};
 
 	const loadProfile = async (token) => {
+		setLoading(true);
 		fetch('http://evening-wildwood-46158.herokuapp.com/me', {
 			method: 'GET',
 			headers: {
@@ -45,6 +48,7 @@ const Checkout = ({ navigation }) => {
 		})
 			.then((response) => response.json())
 			.then((responseJson) => {
+				setLoading(false);
 				setData({
 					id: responseJson.id,
 					name: responseJson.name,
@@ -161,6 +165,7 @@ const Checkout = ({ navigation }) => {
 
 	return (
 		<View style={styles.A}>
+			<Spinner visible={loading} textContent={"Loading"} textStyle={{ color: "white" }} />
 			<StatusBar backgroundColor="gray" barStyle="light-content" />
 
 			<ScrollView style={{ flex: 1, paddingHorizontal: 20 }}>

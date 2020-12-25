@@ -55,28 +55,28 @@ const bottomStack = {
 		screen: Home,
 		options: {
 			title: 'Home',
-			tabBarIcon: () => <Icon name="home" size={30} color="red" />,
+			tabBarIcon: () => <Icon name="home" size={30} color="#0066FF" />,
 		},
 	},
 	Profile: {
 		screen: Profile,
 		options: {
 			title: 'Profile',
-			tabBarIcon: () => <Icon name="user" size={30} color="red" />,
+			tabBarIcon: () => <Icon name="user" size={30} color="#0066FF" />,
 		},
 	},
 	Search: {
 		screen: Search,
 		options: {
 			title: 'Search',
-			tabBarIcon: () => <Icon name="search" size={30} color="red" />,
+			tabBarIcon: () => <Icon name="search" size={30} color="#0066FF" />,
 		},
 	},
 	Cart: {
 		screen: Cart,
 		options: {
 			title: 'Cart Detail',
-			tabBarIcon: () => <Icon name="shopping-cart" size={30} color="red" />,
+			tabBarIcon: () => <Icon name="shopping-cart" size={30} color="#0066FF" />,
 		},
 	},
 };

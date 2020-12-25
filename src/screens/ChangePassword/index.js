@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import {Text} from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -7,9 +7,10 @@ import * as Animatable from 'react-native-animatable';
 import {TextInput} from 'react-native-gesture-handler';
 import {_navigation} from '../../constants';
 import Feather from 'react-native-vector-icons/Feather';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const ChangePassword = ({navigation}) => {
-  const [data, setData] = React.useState({
+  const [data, setData] = useState({
     id: '',
     oldpass: '',
     password: '',
@@ -21,7 +22,10 @@ const ChangePassword = ({navigation}) => {
     isValidPassword: true,
     isValidConfirmPassword: true,
   });
+  const [loading, setLoading] = useState(false);
+
   const loadData = async () => {
+    setLoading(true);
     const token = await AsyncStorage.getItem('token');
 
     fetch('http://evening-wildwood-46158.herokuapp.com/me', {
@@ -34,10 +38,13 @@ const ChangePassword = ({navigation}) => {
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson && responseJson.id) {
+          setLoading(false)
           setData({
             ...data,
             id: responseJson.id,
           });
+        } else {
+          setLoading(false);
         }
       });
   };
@@ -91,6 +98,7 @@ const ChangePassword = ({navigation}) => {
     }
   };
   const handleConfirmButton = async () => {
+    setLoading(true);
     const token = await AsyncStorage.getItem('token');
     fetch('https://evening-wildwood-46158.herokuapp.com/update/' + data.id, {
       headers: {
@@ -107,8 +115,10 @@ const ChangePassword = ({navigation}) => {
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.statusCode === 404) {
+          setLoading(false);
           alert('Old password wrong, please try again');
         } else {
+          setLoading(false);
           alert('Change pass thanh cong');
           navigation.navigate(_navigation.Profile);
         }
@@ -129,6 +139,7 @@ const ChangePassword = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
+      <Spinner textStyle={{ color: 'white'}} textContent={"Loading"} visible={loading} />
       <View style={{margin: 20}}>
         <View style={{alignItems: 'center'}}>
           <Text
